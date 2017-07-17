@@ -6,7 +6,11 @@ function postComments(state = [], action) {
         text: action.comment
       }];
     case 'REMOVE_COMMENT':
-      return state;
+      const i = action.index;
+      return [
+        ...state.slice(0, i),
+        ...state.slice(i + 1)
+      ];
     default:
       return state;
   }
