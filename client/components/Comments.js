@@ -15,7 +15,7 @@ class Comments extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault(); // stoping page from refreshing
-    const postId = this.props.postId;
+    const postId = this.props.params.postId;
     const author = this.refs.author.value;
     const comment = this.refs.comment.value;
     this.props.addComment(postId, author, comment);
