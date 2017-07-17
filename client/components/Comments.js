@@ -13,11 +13,19 @@ class Comments extends React.Component {
     )  
   }
 
+  handleSubmit(e) {
+    e.preventDefault(); // stoping page from refreshing
+    const postId = this.props.postId;
+    const author = this.refs.author.value;
+    const comment = this.refs.comment.value;
+    this.props.addComment(postId, author, comment);
+  }
+
   render () {
     return (
       <div className="comments">
         {this.props.postComments.map(this.renderComment)}
-        <form ref="commentsForm" className="comment-form">
+        <form ref="commentsForm" className="comment-form" onSubmit={this.handleSubmit.bind(this)}>
           <input type="text" ref="author" placeholder="author"/>
           <input type="text" ref="comment" placeholder="comment"/>
           <input type="submit" hidden/>
