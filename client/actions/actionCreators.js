@@ -2,22 +2,16 @@ import { createAction } from 'redux-actions';
 
 
 export const increment = createAction(
-  'INCREMENT_LIKES', (index) => ({ index }));
+  'INCREMENT_LIKES',
+  (index) => ({ index })
+);
 
+export const addComment = createAction(
+  'ADD_COMMENT',
+  (postId, author, comment) => ({ postId, author, comment })
+);
 
-export function addComment(postId, author, comment) {
-  return {
-    type: 'ADD_COMMENT',
-    postId,
-    author,
-    comment
-  }
-}
-
-export function removeComment(postId, index) {
-  return {
-    type: 'REMOVE_COMMENT',
-    postId,
-    index
-  }
-}
+export const removeComment = createAction(
+  'REMOVE_COMMENT',
+  (postId, index) => ({ postId, index })
+);

@@ -2,11 +2,11 @@ function postComments(state = [], action) {
   switch(action.type) {
     case 'ADD_COMMENT':
       return [...state, {
-        user: action.author,
-        text: action.comment
+        user: action.payload.author,
+        text: action.payload.comment
       }];
     case 'REMOVE_COMMENT':
-      const i = action.index;
+      const i = action.payload.index;
       return [
         ...state.slice(0, i),
         ...state.slice(i + 1)
@@ -18,10 +18,11 @@ function postComments(state = [], action) {
 
 
 function comments(state = [], action) {
-  if(typeof action.postId !== 'undefined') {
+  if(action.type == 'ADD_COMMENT' || action.type == 'REMOVE_COMMENT') {
     return {
       ...state,
-      [action.postId]: postComments(state[action.postId], action)
+      [action.payload.postId]: postComments(
+        state[action.payload.postId], action)
     }
   }
   return state;
