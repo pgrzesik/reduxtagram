@@ -27,4 +27,4 @@ const router = (
 )
 
 
-render(router, document.getElementById('root'));
+render(router, document.getElementById('app'));
