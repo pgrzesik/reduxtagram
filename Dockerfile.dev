@@ -1,0 +1,6 @@
+FROM node:8
+MAINTAINER Piotr Grzesik <pj.grzesik@gmail.com>
+
+RUN mkdir -p /app
+WORKDIR /app
+ADD . /app
