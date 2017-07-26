@@ -1,31 +1,27 @@
-function postComments(state = [], action) {
-  switch(action.type) {
-    case 'ADD_COMMENT':
-      return [...state, {
-        user: action.payload.author,
-        text: action.payload.comment
-      }];
-    case 'REMOVE_COMMENT':
-      const i = action.payload.index;
-      return [
-        ...state.slice(0, i),
-        ...state.slice(i + 1)
-      ];
-    default:
-      return state;
-  }
-}
+import { handleActions } from 'redux-actions';
 
 
-function comments(state = [], action) {
-  if(action.type == 'ADD_COMMENT' || action.type == 'REMOVE_COMMENT') {
+const comments = handleActions({
+  'ADD_COMMENT': (state, action) => {
+    const currentComments = state[action.payload.postId] || [];
     return {
       ...state,
-      [action.payload.postId]: postComments(
-        state[action.payload.postId], action)
+      [action.payload.postId]: [
+        ...currentComments,
+        {
+          user: action.payload.author,
+          text: action.payload.comment
+        }
+      ]
     }
-  }
-  return state;
-}
+  },
+  'REMOVE_COMMENT': (state, action) => ({
+    ...state,
+    [action.payload.postId]: [
+      ...state[action.payload.postId].slice(0, action.payload.index),
+      ...state[action.payload.postId].slice(action.payload.index + 1),
+    ]
+  })
+}, [])
 
 export default comments;
