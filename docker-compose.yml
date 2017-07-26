@@ -13,3 +13,11 @@ services:
     ports:
       - "5000:5000"
     command: bash -c "yarn install && yarn start"
+  
+  test-watch:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.dev
+    volumes:
+      - .:/app
+    command: yarn test-watch
